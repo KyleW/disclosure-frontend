@@ -1,5 +1,7 @@
 'use strict';
 
+// Based on https://github.com/goodbomb/angular-gulp-browserify-starter/blob/master/gulpfile.js
+
 var argv = require('yargs').argv;
 var browserify = require('browserify');
 var browserifyCss = require('browserify-css');
@@ -136,7 +138,10 @@ gulp.task('checkstyle', function () {
 gulp.task('bundle', function () {
     return browserify({
             entries: filePath.browserify.src,
-            debug: true
+            external: filePath.vendorJS.src,
+            debug: true,
+            cache: {},
+            packageCache: {}
         })
         .transform(browserifyCss, {
             global: true,
@@ -216,9 +221,29 @@ gulp.task('fonts', function () {
 });
 
 // =======================================================================
+// Vendor JS Task
+// =======================================================================
+gulp.task('vendorJS', function () {
+    var b = browserify({
+        debug: true,
+        require: filePath.vendorJS.src
+    });
+
+    return b.bundle()
+        .pipe(source('vendor.js'))
+        .on('error', handleError)
+        .pipe(buffer())
+        .pipe(uglify())
+        .pipe(gulp.dest(filePath.build.dest))
+        .pipe(notify({
+            message: 'VendorJS task complete'
+        }));
+});
+
+// =======================================================================
 // Vendor CSS Task
 // =======================================================================
-//gulp.task('vendorCSS', function() {
+// gulp.task('vendorCSS', function() {
 //    return gulp.src(filePath.vendorCSS.src)
 //    .pipe(concat('vendor.css'))
 //    .on('error', handleError)
@@ -228,7 +253,7 @@ gulp.task('fonts', function () {
 //        message: 'VendorCSS task complete'
 //    }))
 //    .pipe(connect.reload());
-//});
+// });
 
 
 // =======================================================================
@@ -263,7 +288,7 @@ gulp.task('watch', function () {
     gulp.watch(filePath.styles.watch, ['styles-dev']);
     gulp.watch(filePath.assets.images.watch, ['images']);
     gulp.watch(filePath.browserify.watch, ['bundle']);
-    // gulp.watch(filePath.vendorJS.src, ['vendorJS']);
+    gulp.watch(filePath.vendorJS.src, ['vendorJS']);
     gulp.watch(filePath.copyIndex.watch, ['copyIndex']);
     gulp.watch(filePath.lint.src, ['checkstyle']);
     console.log('Watching...');
@@ -302,10 +327,7 @@ gulp.task('build-dev', function (callback) {
     runSequence(
         ['clean-dev', 'lint', 'checkstyle'],
         // images and vendor tasks are removed to speed up build time. Use "gulp build" to do a full re-build of the dev app.
-        [
-            'bundle',
-            'styles-dev', 'copyIndex', 'copyFavicon'
-        ], ['server', 'watch'],
+        ['bundle', 'styles-dev', 'copyIndex', 'copyFavicon'], ['server', 'watch'],
         callback
     );
 });
@@ -321,10 +343,7 @@ gulp.task('build-test', function (callback) {
 // run "gulp prod" in terminal to build the PROD-ready app
 gulp.task('build-prod', function (callback) {
     runSequence(
-        ['clean-full', 'lint', 'checkstyle'], [
-            'bundle',
-            'styles-prod', 'images', 'fonts', 'copyIndex', 'copyFavicon'
-        ],
+        ['clean-full', 'lint', 'checkstyle'], ['bundle', 'styles-prod', 'images', 'fonts', 'vendorJS', 'copyIndex', 'copyFavicon'],
         callback
     );
 });
@@ -332,7 +351,7 @@ gulp.task('build-prod', function (callback) {
 // run "gulp build" in terminal for a full re-build in DEV
 gulp.task('build', function (callback) {
     runSequence(
-        ['clean-full', 'lint', 'checkstyle'], ['bundle', 'styles-dev', 'images', 'fonts', 'copyIndex', 'copyFavicon'], ['server', 'watch'],
+        ['clean-full', 'lint', 'checkstyle'], ['bundle', 'styles-dev', 'images', 'fonts', 'vendorJS', 'copyIndex', 'copyFavicon'], ['server', 'watch'],
         callback
     );
 });

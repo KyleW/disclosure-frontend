@@ -1,5 +1,4 @@
 'use strict';
-
 var uiRouter = require('angular-ui-router');
 var uiRouterExtras = require('ui-router-extras');
 var angularAnimate = require('angular-animate');
@@ -10,12 +9,15 @@ var angularSanitize = require('angular-sanitize');
 var angularBreadcrumb = require('angular-breadcrumb');
 var bootstrap = require('bootstrap');
 var domReady = require('domready');
+
 var AgGrid = require('../../node_modules/ag-grid/dist/ag-grid.noStyle');
 AgGrid.initialiseAgGridWithAngular1(angular);
+
 
 module.exports = function() {
 
   var vendor = {
+    angular: angular,
     uiRouter: uiRouter,
     uiRouterExtras: uiRouterExtras,
     angularAnimate: angularAnimate,

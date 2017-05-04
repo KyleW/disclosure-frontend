@@ -38,12 +38,12 @@ module.exports = function() {
             // These files will be bundled into a single vendor.js file that's called at the bottom of index.html
             src: ['./app/vendor/vendor.js']
         },
-        //vendorCSS: {
-        //    src: [
-        //        './libs/bootstrap/dist/css/bootstrap.css', // v3.1.1
-        //        './libs/font-awesome/css/font-awesome.css' // v4.1.0
-        //    ]
-        //},
+        vendorCSS: {
+           src: [
+               './libs/bootstrap/dist/css/bootstrap.css', // v3.1.1
+               './libs/font-awesome/css/font-awesome.css' // v4.1.0
+           ]
+        },
         copyIndex: {
             src: './app/index.html',
             watch: './app/index.html'

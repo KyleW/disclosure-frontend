@@ -1,7 +1,6 @@
 (function() {
   'use strict';
 
-  require('../../../vendor/vendor');
   require('../../services/disclosure');
 
   angular.module('coreModules', [

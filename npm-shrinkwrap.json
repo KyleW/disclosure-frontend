@@ -195,8 +195,9 @@
       "integrity": "sha1-A7exXAGggC1+LPWTJA5gQFTcd/s="
     },
     "angular-animate": {
-      "version": "https://registry.npmjs.org/angular-animate/-/angular-animate-1.4.9.tgz",
-      "integrity": "sha1-/HvIz3+vaDRbMkfCzwVUbYXu+eE="
+      "version": "1.6.4",
+      "resolved": "https://registry.npmjs.org/angular-animate/-/angular-animate-1.6.4.tgz",
+      "integrity": "sha1-0+uQbTmDTy373Zgua416O02QAdI="
     },
     "angular-breadcrumb": {
       "version": "https://registry.npmjs.org/angular-breadcrumb/-/angular-breadcrumb-0.4.1.tgz",
@@ -205,6 +206,11 @@
     "angular-cookies": {
       "version": "https://registry.npmjs.org/angular-cookies/-/angular-cookies-1.4.9.tgz",
       "integrity": "sha1-ZJCjBDWTZHR88+wGIohqkPf/nNU="
+    },
+    "angular-filter": {
+      "version": "0.5.16",
+      "resolved": "https://registry.npmjs.org/angular-filter/-/angular-filter-0.5.16.tgz",
+      "integrity": "sha1-5x9AhsBo5AcWZVA2wiZw+KaYWIY="
     },
     "angular-mocks": {
       "version": "1.4.9",

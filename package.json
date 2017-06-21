@@ -88,7 +88,7 @@
   },
   "dependencies": {
     "ag-grid": "^4.2.5",
-    "angular": "1.4.9",
+    "angular": "^1.6.4",
     "angular-animate": "1.4.9",
     "angular-breadcrumb": "^0.4.1",
     "angular-cookies": "1.4.9",

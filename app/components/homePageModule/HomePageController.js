@@ -7,7 +7,7 @@ function HomePageController($scope, $log, $http) {
 
   function logClickEvent($event) {
     $log.info('CLICK EVENT = ', $event);
-  };
+  }
 }
 
 HomePageController.$inject = ['$scope', '$log', '$http'];

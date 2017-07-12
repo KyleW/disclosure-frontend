@@ -1,6 +1,6 @@
 'use strict';
 
-var uiRouter = require('angular-ui-router');
+var uiRouter = require('@uirouter/angularjs');
 var uiRouterExtras = require('ui-router-extras');
 var angularAnimate = require('angular-animate');
 var angularUiBootstrap = require('angular-ui-bootstrap');
